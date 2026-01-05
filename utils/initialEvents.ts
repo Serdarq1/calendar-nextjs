@@ -2,7 +2,7 @@ import { EventData } from '@/types/events'
 
 export const initialEvents: EventData[] = [
   {
-    id: 1,
+    id: '1',
     status: 'Tek',
     title: 'Spor',
     date: '2024-09-12',
@@ -12,7 +12,7 @@ export const initialEvents: EventData[] = [
     members: [{ name: 'Priya', avatar: 'https://lh3.googleusercontent.com/a/default-user=s64-c' }],
   },
   {
-    id: 2,
+    id: '2',
     status: 'Birlikte',
     title: 'Client presentation and feedback session',
     date: '2024-09-13',
@@ -26,7 +26,7 @@ export const initialEvents: EventData[] = [
     ],
   },
   {
-    id: 3,
+    id: '3',
     status: 'Birlikte',
     title: 'Ekinle dışarı çıkma',
     date: '2024-09-15',
@@ -38,7 +38,7 @@ export const initialEvents: EventData[] = [
     ],
   },
   {
-    id: 4,
+    id: '4',
     status: 'Tek',
     title: 'Review quarterly marketing metrics',
     date: '2024-09-16',
