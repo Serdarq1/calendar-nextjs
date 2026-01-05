@@ -9,6 +9,7 @@ import { EventData } from "@/types/events";
 import { useUser } from "@clerk/nextjs";
 import CalendarSelector from "@/components/CalendarSelector";
 import InviteModal from "@/components/InviteModal";
+import PWARegister from "@/components/PWARegister";
 
 type Calendar = { id: string; name: string; role: string };
 
@@ -279,15 +280,16 @@ const handleRenameCalendar = async (id: string, newName: string) => {
   const activeDate = selectedDate || derivedDays[0]?.iso || new Date().toISOString().slice(0, 10);
 
   return (
+    <>
+    <PWARegister />
     <main className="min-h-[calc(100vh-4rem)] bg-neutral-950 px-4 pb-24">
       <div className="max-w-3xl mx-auto space-y-12">
-         <CalendarSelector
+        <CalendarSelector
           calendars={calendars}
           activeId={activeCalendarId}
-          onSelect={(id: any) => setActiveCalendarId(id)}
+          onSelect={(id: string) => setActiveCalendarId(id)}
           onCreate={handleCreateCalendar}
           onInvite={() => setShowInvite(true)}
-          onRename={handleRenameCalendar}
         />
         <Hero selectedDate={activeDate} onSelectDate={setSelectedDate} days={derivedDays} />
         <EventModal selectedDate={activeDate} events={events} onSaveEvent={handleSaveEvent} />
@@ -307,5 +309,6 @@ const handleRenameCalendar = async (id: string, newName: string) => {
         onInvite={handleInvite}
       />
     </main>
+    </>
   );
 }
