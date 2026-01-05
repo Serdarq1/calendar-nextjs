@@ -15,7 +15,7 @@ const mapEvent = async (row: any) => {
     // Fetch ALL calendar members (not just event members)
     const { data: memberData, error } = await supabaseServer
       .from('calendar_members')
-      .select('user_id, profiles(id, full_name, avatar_url)')
+      .select('user_id, profiles!calendar_members_user_id_fkey(id, full_name, avatar_url)')
       .eq('calendar_id', row.calendar_id)
       .eq('accepted', true)
 
@@ -23,11 +23,15 @@ const mapEvent = async (row: any) => {
       console.error('❌ Error fetching members:', error)
     } else {
       console.log('✅ Found members:', memberData?.length)
-      members = memberData?.map(m => ({
-        id: m.profiles?.id,
-        name: m.profiles?.full_name || 'Member',
-        avatar: m.profiles?.avatar_url || undefined
-      })) || []
+      members = (memberData || []).map((m: any) => {
+        const profileArray = Array.isArray(m.profiles) ? m.profiles : [m.profiles]
+        const profile = profileArray && profileArray[0]
+        return {
+          id: profile?.id || m.user_id,
+          name: profile?.full_name || 'Member',
+          avatar: profile?.avatar_url || undefined,
+        }
+      }) || []
     }
 
     // Also add the owner if not already in members
