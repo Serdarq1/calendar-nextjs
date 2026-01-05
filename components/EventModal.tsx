@@ -79,9 +79,10 @@ export default function EventModal({ selectedDate, events, onSaveEvent }: EventM
     }
 
     // Otherwise, show the owner
-    if (event.owner_id) {
+    const ownerId = (event as any).owner_id as string | undefined
+    if (ownerId) {
       // If current user is the owner, show their avatar
-      if (user && event.owner_id === user.id) {
+      if (user && ownerId === user.id) {
         return [{
           id: user.id,
           name: user.fullName || user.username || 'You',
@@ -92,7 +93,7 @@ export default function EventModal({ selectedDate, events, onSaveEvent }: EventM
       // For other users' events, you'd need to fetch their profile
       // For now, show a placeholder
       return [{
-        id: event.owner_id,
+        id: ownerId,
         name: 'Owner',
         avatar: undefined
       }]
