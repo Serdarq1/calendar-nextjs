@@ -44,10 +44,11 @@ const getIconColor = (type: string, index: number) => {
 
 const renderAvatar = (member: EventMember, index: number) => {
   const firstLetter = member.name?.[0]?.toUpperCase() || '?'
+  const key = `${member.name}-${index}`
   if (member.avatar) {
     return (
       <img
-        key={`${member.id || member.name}-${index}`}
+        key={key}
         src={member.avatar}
         alt={member.name}
         className="w-9 h-9 rounded-full border border-white/30 bg-white object-cover"
@@ -56,7 +57,7 @@ const renderAvatar = (member: EventMember, index: number) => {
   }
   return (
     <div
-      key={`${member.id || member.name}-${index}`}
+      key={key}
       className="w-9 h-9 rounded-full bg-gradient-to-br from-red-400 to-orange-500 text-white flex items-center justify-center text-sm font-semibold border border-white/30"
       aria-label={member.name}
     >
