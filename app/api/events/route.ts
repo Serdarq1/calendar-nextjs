@@ -7,7 +7,7 @@ import { supabaseServer } from '@/lib/supabaseServer'
 const mapEvent = async (row: any) => {
   const iso = row.date ? new Date(row.date).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10)
   const day = Number(iso.split('-')[2]) || new Date(iso).getDate()
-  const members: { id?: string; name: string; avatar?: string }[] = []
+  let members: { id?: string; name: string; avatar?: string }[] = []
 
   if (row.type === 'collaborative') {
     console.log('🔍 Fetching members for collaborative event:', row.id, 'calendar:', row.calendar_id)
