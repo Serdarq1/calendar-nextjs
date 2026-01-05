@@ -156,7 +156,7 @@ const handleSaveEvent = async (updated: EventData) => {
       const cals = await loadCalendars();
       
       // Only create default if no calendars exist
-      if (cals.length === 0) {
+      if (!cals || cals.length === 0) {
         await createDefaultCalendarIfMissing();
         await loadCalendars(); // Reload after creating
       }
