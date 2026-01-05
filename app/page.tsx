@@ -188,12 +188,17 @@ const handleSaveEvent = async (updated: EventData) => {
   const handleInvite = async (email: string, role: string) => {
     if (!activeCalendarId) return;
     try {
-      await fetch(`/api/calendars/${activeCalendarId}/invite`, {
+      const res = await fetch(`/api/calendars/${activeCalendarId}/invite`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ email, role }),
       });
+      if (!res.ok) {
+        const error = await res.json().catch(() => ({}))
+        console.error('Invite failed', error)
+        return
+      }
       console.log('✅ Invite sent to:', email)
     } catch (err) {
       console.error("Invite error", err);
